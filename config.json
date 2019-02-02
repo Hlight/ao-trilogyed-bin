@@ -1,0 +1,234 @@
+{
+  "UWASEA201811FSF5": {
+    "week01": {
+      "content_dir": "01-html-git-css/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week02": {
+      "content_dir": "02-css-bootstrap/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week03": {
+      "content_dir": "03-javascript/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week04": {
+      "content_dir": "04-jquery/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week05": {
+      "content_dir": "05-timers/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week06": {
+      "content_dir": "06-ajax/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week07": {
+      "content_dir": "07-firebase/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week08": {
+      "content_dir": "08-project-1/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week09": {
+      "content_dir": "09-portfolio-update/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week10": {
+      "content_dir": "10-nodejs/",
+      "activities": {
+        "day01": [
+          "01-HelloNode",
+          "02-Sriracha",
+          "03-Arguments",
+          "04-ArgumentsAddition",
+          "05-ParameterCheck",
+          "06-Calculator",
+          "07-Multiples",
+          "08-Modularization",
+          "09-Bands",
+          "10-CommandLineArg",
+          "11-WriteFile",
+          "12-ReadFile",
+          "13-BestThingsEver",
+          "14-AppendFile",
+          "15-BankJS",
+          "16-Axios",
+          "17-OMDB_Axios",
+          "18-OMDB_Axios_Students",
+          "19-SyncVAsync",
+          "20-CommandSort",
+          "21-AxiosRefresher",
+          "22-WeatherNPM",
+          "23-GeocodeNPM",
+          "24-PackageJSON",
+          "25-Inquirer_Intro",
+          "26-Inquirer_Users",
+          "27-Inquirer_Geocode",
+          "28-NodeDebug",
+          "29-ZombieChallenge"
+        ],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week11": {
+      "content_dir": "11-js-constructors/",
+      "activities": {
+        "day01": [
+          "01-RainingCatsAndDogs-NoCon",
+          "02-RainingCatsAndDogs-Con",
+          "03-CharacterCreate",
+          "04-Tamagotchi",
+          "05-Programmers",
+          "06-ProgrammersWithPrompt",
+          "07-ProgrammersLoop",
+          "08-TeamManager",
+          "09-MovieManager",
+          "10-Classrooms",
+          "11-Stu_Architecture",
+          "12-Stu_Cli",
+          "13-Stu_FindShow",
+          "14-Stu_FinalTVApp",
+          "15-Callback"
+        ],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week12": {
+      "content_dir": "12-mysql/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week13": {
+      "content_dir": "13-express/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week14": {
+      "content_dir": "14-handlebars/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week15": {
+      "content_dir": "15-sequelize/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week16": {
+      "content_dir": "16-project-2/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week17": {
+      "content_dir": "17-project-2/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week18": {
+      "content_dir": "18-mongo-mongoose/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week19": {
+      "content_dir": "19-react/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week20": {
+      "content_dir": "20-react/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week21": {
+      "content_dir": "21-regionalized-content/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week22": {
+      "content_dir": "22-computer-science/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    },
+    "week23": {
+      "content_dir": "23-other-languages/",
+      "activities": {
+        "day01": [],
+        "day02": [],
+        "day03": []
+      }
+    }
+  }
+}
