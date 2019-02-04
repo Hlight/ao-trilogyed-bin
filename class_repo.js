@@ -1,11 +1,8 @@
 
-require('./debug.js');
+
+require('./extra/debug.js'); // enables __function, __linen
 
 const logger = require('logat');
-// logger.error('this is error');
-// logger.warn('this is warn');
-// logger.info('this is info');
-// logger.debug('this is debug');
 
 // # Commandline Arguments
 // ...
@@ -16,17 +13,12 @@ const logger = require('logat');
 // return
 // ...OR minimist (requires `npm install minimist`)
 const argv = require('minimist')(process.argv.slice(2));
-
 const package = require('./package.json');
 const fs = require('fs-extra');
-// const fromDir = require(__dirname + '/from-dir.js');
 const path = require('path');
-
 const userHome = require('user-home');
-
+// const fromDir = require(__dirname + '/extra/from-dir.js');
 const isConsoleEnabled = argv.v || argv.verbose || false;
-
-
 
 /**
  * Class Repo Options
@@ -133,51 +125,75 @@ function loadCohort(cohort) {
     }
   }
 }
-
+/**
+ * Wrapper for console.log so we can turn it off with an option.
+ * @param {String} out 
+ */
 function log(out) {
   if (isConsoleEnabled) {
     console.log(out);
   }
 }
-
-// Pad numbers to two digits e.g. 1 to 01
+/**
+ * Pad numbers to two digits e.g.1 to 01
+ * @param {Number} num 
+ */
 function pad(num) {
   var s = "0" + num;
   return s.substr(s.length - 2);
 }
+/**
+ * Make a directory using fs - extra 's "ensureDirSync"
+ * @param {String} dir 
+ */
 function mkDir(dir) {
   if (isDirExists(dir)) {
     logger.warn('Already exists! ' + dir);
   }
   fs.ensureDirSync(dir);
 }
+/**
+ * @param {String} path 
+ */
 function isDirExists (path) {
   let isDirExists = fs.existsSync(path) &&
     fs.lstatSync(path).isDirectory();
   return isDirExists;
 }
+/**
+ * @param {String} path 
+ */
 function isFileExists(path) {
   let isFileExists = fs.existsSync(path) &&
     fs.lstatSync(path).isFile();
   return isFileExists;
 }
+/**
+ * @param {String} path 
+ */
 function isFileOrDirectory(path) {
   return isFileExists(path) || isDirExists(path);
 }
+/**
+ * Copies a given src file to supplied dest folder.
+ * Throws error if src does not exist.
+ * 
+ * @param {String} src 
+ * @param {String} dest 
+ */
 function copyFile(src, dest) {
   if (!isFileOrDirectory(src)) {
-    console.error('Src not found! (' + src + ')');
+    logger.error('Src not found! (' + src + ')');
     return;
   }
   if (isFileExists(dest)) {
-    logger.warn('Already exists! (' + dest + ')');
+    logger.warn('File already exists! (' + dest + ')');
     return;
   }
   if (isDirExists(dest)) {
-    logger.warn('Already exists! (' + dest +')');
+    logger.warn('Dir already exists! (' + dest +')');
     return;
   }
-  // TODO: enable copy method below
   log('fs.copy(' + src + ', ' + dest + ')')
   // With Promises:
   fs.copy(src, dest)
@@ -188,6 +204,9 @@ function copyFile(src, dest) {
       console.error(err)
     })
 }
+/**
+ * Copies video and student guides to class repo week directory.
+ */
 function copyWeeklyReadmes() {
   let filesToCopy = {
     'VideoGuide.md': 'VideoGuide.md',
@@ -203,6 +222,11 @@ function copyWeeklyReadmes() {
     copyFile(src, dest);
   }
 }
+/**
+ * Copies files (defined as keys in dirsToCopy) to their day folder destination.  The values of dirsToCopy represent the new file names (if changed).
+ *
+ * @param {Object} day 
+ */
 function copyDailyExtras(day) {
   let dest = day.distDir;
   let dirsToCopy = {
@@ -241,7 +265,12 @@ function copyDailyActivities (activities, src, dest) {
     }
   });
 }
-
+/**
+ * Responsible for creating a .gitignore file with the given content.
+ * 
+ * @param {String} dest 
+ * @param {String} content
+ */
 function createGitIgnore (dest, content) {
   dest = dest + '/.gitignore';
   if (isFileExists(dest)) {
@@ -253,11 +282,14 @@ function createGitIgnore (dest, content) {
   writeStream.end();
   logger.info('Created .gitignore at ' + dest);
 }
-
+/**
+ * Main script to setup our class repo directories for the week.
+ * 
+ * @param {Object} activities 
+ */
 function makeDirectories(activities) {
   mkDir(options.distWeek);
   mkDir(options.distWeekContentDir);
-
   // Add individual class day directories.
   let dayNum = 1;
   for (day in activities) {
@@ -267,28 +299,22 @@ function makeDirectories(activities) {
       dayNum++;
     }
   }
-
   // ## Copy src lesson plan material for week.
   copyWeeklyReadmes();
-
   // ## Copy Homework dir to dist
-  // log(__line);
   logger.debug(__function);
   copyFile(
     options.srcClassContents + options.srcHomeworkDir,
     options.distWeekHomeworkDir
   );
   // ## Copy Supplemental directory to dist
-  // log(__line);
   logger.debug(__function);
   copyFile(
     options.srcSupplementalDir,
     options.distSupplementalDir
   );
-
   // ## add .gitignore to ignore 'Solutions' in Homework dir (remove this after 1 week of class passes)
   createGitIgnore(options.distWeekHomeworkDir, 'Solutions');
-
   // ## Copy class-day activities for week.
   let dayConfig = {
     day01: {
@@ -305,9 +331,7 @@ function makeDirectories(activities) {
     }
   };
   for (day in dayConfig) {
-    // log(dayConfig[day]);
     fs.ensureDir(dayConfig[day].distDir);
-    // log(options.loadedCohort.activities[day]);
     copyDailyExtras(dayConfig[day]);
     // ## add .gitignore to ignore "Solved" directories for days activities (remove after class)
     createGitIgnore(dayConfig[day].distDir, 'Solved');
@@ -358,7 +382,6 @@ function fromDir(startPath, filter, callback) {
 
   }
 }
-
 
 //----------------------------
 // ## Script
