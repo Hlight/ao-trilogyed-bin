@@ -1,0 +1,59 @@
+{
+  "name": "trilogyed",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "fs-extra": {
+      "version": "7.0.1",
+      "resolved": "https://registry.npmjs.org/fs-extra/-/fs-extra-7.0.1.tgz",
+      "integrity": "sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==",
+      "requires": {
+        "graceful-fs": "^4.1.2",
+        "jsonfile": "^4.0.0",
+        "universalify": "^0.1.0"
+      }
+    },
+    "graceful-fs": {
+      "version": "4.1.15",
+      "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.15.tgz",
+      "integrity": "sha512-6uHUhOPEBgQ24HM+r6b/QwWfZq+yiFcipKFrOFiBEnWdy5sdzYoi+pJeQaPI5qOLRFqWmAXUPQNsielzdLoecA=="
+    },
+    "jsonfile": {
+      "version": "4.0.0",
+      "resolved": "https://registry.npmjs.org/jsonfile/-/jsonfile-4.0.0.tgz",
+      "integrity": "sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=",
+      "requires": {
+        "graceful-fs": "^4.1.6"
+      }
+    },
+    "logat": {
+      "version": "1.0.11",
+      "resolved": "https://registry.npmjs.org/logat/-/logat-1.0.11.tgz",
+      "integrity": "sha512-3b5KNQ3z6E9WvBDYjwCAb1rBFdxq8A1LE8oCkOgrl38Kr+HCgCaWAwfMImZp0LCC3llNHp3JJkG1tSYuyhU1XA=="
+    },
+    "minimist": {
+      "version": "1.2.0",
+      "resolved": "https://registry.npmjs.org/minimist/-/minimist-1.2.0.tgz",
+      "integrity": "sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ="
+    },
+    "os-homedir": {
+      "version": "1.0.2",
+      "resolved": "https://registry.npmjs.org/os-homedir/-/os-homedir-1.0.2.tgz",
+      "integrity": "sha1-/7xJiDNuDoM94MFox+8VISGqf7M="
+    },
+    "universalify": {
+      "version": "0.1.2",
+      "resolved": "https://registry.npmjs.org/universalify/-/universalify-0.1.2.tgz",
+      "integrity": "sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg=="
+    },
+    "user-home": {
+      "version": "2.0.0",
+      "resolved": "https://registry.npmjs.org/user-home/-/user-home-2.0.0.tgz",
+      "integrity": "sha1-nHC/2Babwdy/SGBODwS4tJzenp8=",
+      "requires": {
+        "os-homedir": "^1.0.0"
+      }
+    }
+  }
+}

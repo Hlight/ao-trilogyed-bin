@@ -1,0 +1,36 @@
+{
+  "name": "trilogyed",
+  "version": "1.0.0",
+  "description": "Creates students weekly class contents.",
+  "main": "class_repo.js",
+  "paths": {
+    "sourceRepoDir": "Documents/TrilogyEd/FullStack-Lesson-Plans/",
+    "lessonPlanDir": "02-lesson-plans/part-time/",
+    "classContentDir": "01-Class-Content/",
+    "activitiesDir": "01-Activities/",
+    "homeworkDir": "02-Homework/",
+    "supplementalDir": "03-Supplemental/",
+    "cohorts": {
+      "UWASEA201811FSF5": "Code/gitlab/Hlight/UWASEA201811FSF5/"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hlight/ao-trilogyed-bin.git"
+  },
+  "author": "Aaron Ostrowsky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hlight/ao-trilogyed-bin/issues"
+  },
+  "homepage": "https://github.com/Hlight/ao-trilogyed-bin#readme",
+  "dependencies": {
+    "fs-extra": "^7.0.1",
+    "logat": "^1.0.11",
+    "minimist": "^1.2.0",
+    "user-home": "^2.0.0"
+  }
+}

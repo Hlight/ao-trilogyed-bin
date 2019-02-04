@@ -10,6 +10,9 @@
     },
     "week02": {
       "content_dir": "02-css-bootstrap/",
+      "activites_dir": "01-Activities/",
+      "homework_dir": "02-Homework/",
+      "supplemental_dir": "03-Supplemental/",
       "activities": {
         "day01": [],
         "day02": [],
@@ -74,6 +77,9 @@
     },
     "week10": {
       "content_dir": "10-nodejs/",
+      "activities_dir": "01-Activities/",
+      "homework_dir": "02-Homework/",
+      "supplemental_dir": "03-Supplemental/",
       "activities": {
         "day01": [
           "01-HelloNode",
@@ -84,7 +90,9 @@
           "06-Calculator",
           "07-Multiples",
           "08-Modularization",
-          "09-Bands",
+          "09-Bands"
+        ],
+        "day02": [
           "10-CommandLineArg",
           "11-WriteFile",
           "12-ReadFile",
@@ -94,7 +102,9 @@
           "16-Axios",
           "17-OMDB_Axios",
           "18-OMDB_Axios_Students",
-          "19-SyncVAsync",
+          "19-SyncVAsync"
+        ],
+        "day03": [
           "20-CommandSort",
           "21-AxiosRefresher",
           "22-WeatherNPM",
@@ -105,9 +115,7 @@
           "27-Inquirer_Geocode",
           "28-NodeDebug",
           "29-ZombieChallenge"
-        ],
-        "day02": [],
-        "day03": []
+        ]
       }
     },
     "week11": {
