@@ -6,12 +6,12 @@ Creates weekly class content by copying from source lesson plans; adds git ignor
 
 Commandline Options:
 
-| Option | Description
-| :---: | :--------------|
-`--week` or `-w` | Required, number, the week to copy contents for. |
-`--day` or `-d` | _(optional)_ number representing the class-day within the week to copy contents for. Script copies content for all days if this is ommitted. |
-`--cohort` or `-c` | Required, string, cohort ID to copy curriculum contents for (configured in package.json) |
-|`--verbose` or `-v`| _(optional)_ turn on extra console logs. |
+| Option (long) | Option (short) | Description
+| :---: | :---: | :---------|
+`--week` | `-w` | Required, number, the week to copy contents for. |
+`--day` | `-d` | _(optional)_ number representing the class-day within the week to copy contents for. Script copies content for all days if this is ommitted. |
+`--cohort` | `-c` | Required, string, cohort ID to copy curriculum contents for (configured in package.json) |
+|`--verbose` | `-v`| _(optional)_ turn on extra console logs. |
 
 ```shell
 node class_repo.js --week 10 --day 1 --cohort UWASEA201811fsf5 -v
