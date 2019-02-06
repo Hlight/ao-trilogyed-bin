@@ -14,14 +14,14 @@ Commandline Options:
 |`--verbose` | `-v`| _(optional)_ turn on extra console logs. |
 
 ```shell
-node class_repo.js --week 10 --day 1 --cohort UWASEA201811fsf5 -v
+ node class_repo.js --week 10 --cohort UWASEA201811FSF5 -v
 ```
 
 ## Options Object
 
 - `week` - Required, number, the week to copy contents for.
 - `day` - _(optional)_ number representing the class-day within the week to copy contents for. Script copies content for all days if this is ommitted.
-- `cohort` - Required, string, cohort ID to copy curriculum contents for (configured in package.json)
+- `cohort` - Required, string, cohort ID e.g. `UWASEA201811FSF5`to copy curriculum contents for (configured in package.json)
 
 *Properties*
 
@@ -32,7 +32,7 @@ node class_repo.js --week 10 --day 1 --cohort UWASEA201811fsf5 -v
 
 Source Paths:
 
-- `srcWeekDir` - curriculum week directory name.
+- `srcWeekDirName` - curriculum week directory name.
 - `srcLessonPlans` - lesson plan root directory path.
 - `srcClassContents` - class contents root directory.
 - `srcHomeworkDir` - source homework directory.
