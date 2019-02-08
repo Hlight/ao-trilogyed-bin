@@ -60,27 +60,27 @@ Each lesson plan lists out which activities for the day. This file must be manua
 ```json
 {
   "curriculum": {
-    // Cohort ID
     "UWASEA201811FSF5": {
       "week01": {
         "content_dir": "01-html-git-css/",
         "activities": {
           "day01": [
-            // ... daily activity folders here
+            "01-Activity1"
           ],
           "day02": [
-            // ... daily activity folders here
+            "02-Activity2"
           ],
           "day03": [
-            // ... daily activity folders here
+            "03-Activity3"
           ]
         }
       }
-      // ... additional weeks here
     }
   }
 }
 ```
+
+---
 
 ## Package.json Paths
 
@@ -92,7 +92,6 @@ The following "paths" object must be in the package.json in oder to configure th
     "lessonPlanDir": "02-lesson-plans/part-time/",
     "classContentDir": "01-Class-Content/",
     "activitiesDir": "01-Activities/",
-    "homeworkDir": "02-Homework/",
     "supplementalDir": "03-Supplemental/",
     "cohorts": {
       "UWASEA201811FSF5": "Code/gitlab/Hlight/UWASEA201811FSF5/"

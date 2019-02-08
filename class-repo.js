@@ -3,7 +3,12 @@
 /**
  * class_repo.js
  * 
- * Class Repo Helper Script - responsible for creating student class repo directories for a given week of curriculum.
+ * @name Class Repo
+ * @version 1.0.0
+ * @author Aaron Ostrowsky <aaronostrowsky@gmail.com>
+ * @description Class Repo Helper Script - responsible
+ for creating student class repo directories
+ for a given week of curriculum.
  * 
  * - Creates week directory (distWeek) in configured class repo.
  * - Copies weekly StudentGuide.md into distWeek as README.md
@@ -12,7 +17,7 @@
  * - Copies class-day activities into their respective day directory.
  * - Copies images and slideshows for each day into each dist day directory.
  * 
- * See README.md for more.
+ * @docs See README.md
  * 
  */
 
@@ -97,8 +102,7 @@ const options = {
     return this.distWeek + this.distClassContentDirName + '/';
   },
   get distWeekHomeworkDir () {
-    // TODO: get homework dir name since it could sometimes be "01-Homework" in the source repo's week dir.
-    return this.distWeek + this.homeworkDirName + '/';
+    return this.distWeek + this.distHomeworkDirName + '/';
   },
   get distSupplementalDir () {
     return this.distWeek + 'Supplemental/';
@@ -138,13 +142,14 @@ function init() {
   console.log(options.srcClassContents)
   let folderName = findFileOrDir(options.srcClassContents, /\d+-Homework/);
   options.srcHomeworkDirName = folderName;
-  logger.debug(folderName);
-  logger.debug(/^0/.test(folderName))
+  // logger.debug(folderName);
+  // logger.debug(/^0/.test(folderName))
+  // Remove the leading zeros e.g. 01 becomes 1
   if (/^0/.test(folderName)) {
     folderName = folderName.replace(/^0/, '');
     logger.debug(folderName)
   }
-  options.homeworkDirName = folderName;
+  options.distHomeworkDirName = folderName + '/';
   return true;
 }
 /**
@@ -276,12 +281,12 @@ function copyWeeklyReadmes() {
         var regex = new RegExp(regexString, 'gm');
         result = data.replace(
           regex,
-          function (match, origUrl, homeworkDirName, offset, inputString) {
-            // console.log('homeworkDirName:' + homeworkDirName)
+          function (match, origUrl) {
             logger.info('Rename directory: \n' +
             'OLD: ' + origUrl + '\n' +
-            'NEW: ' + options.homeworkDirName);
-            return options.homeworkDirName;
+            'NEW: ' + options.distHomeworkDirName);
+
+            return options.distHomeworkDirName;
           }
         );
 
@@ -322,6 +327,9 @@ function copyWeeklyReadmes() {
     }
 
   }
+}
+function copyWeekExtras() {
+  copyFile(options.srcLessonPlans + 'Supplemental', options.distWeek + 'Supplemental');
 }
 /**
  * Copies files (defined as keys in dirsToCopy) to their day folder destination.  The values of dirsToCopy represent the new file names (if changed).
@@ -452,6 +460,9 @@ function makeDirectories(activities) {
   // ## add .gitignore to ignore 'Solutions' in Homework dir (remove this after 1 week of class passes)
   logger.debug(options.distWeekHomeworkDir)
   createGitIgnore(options.distWeekHomeworkDir, 'Solutions');
+  // ## Copy supplemental folder in the week.
+  copyWeekExtras();
+
   // ## Copy class-day activities for week.
   let dayConfig = {
     day01: {
