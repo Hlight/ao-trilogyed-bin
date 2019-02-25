@@ -201,9 +201,14 @@ function isFileExists(path) {
 function isFileOrDirectory(path) {
   return isFileExists(path) || isDirExists(path);
 }
+/**
+ * 
+ * @param {*} dirPath 
+ * @param {*} search 
+ */
 function findFileOrDir(dirPath, search) {
+  const files = shell.ls(dirPath);
   let out = '';
-  let files = shell.ls(dirPath);
   logger.debug(files)
   for (let i=0;i<files.length;i++) {
     let file = files[i];
@@ -243,6 +248,75 @@ function copyFile(src, dest) {
  * Copies video and student guides to class repo week directory.
  */
 function copyWeeklyReadmes() {
+  const fixActivityLinks = (filePath) => {
+    logger.debug(filePath)
+    if (!isFileExists(filePath)) {
+      logger.warn('file not found, ' + filePath);
+      return;
+    }
+
+    fs.readFile(filePath, 'utf8', function (err, data) {
+      if (err) {
+        return logger.error('ERROR:' + err);
+      }
+
+      let result;
+
+      // Update homework link
+      // old: ../../../01-Class-Content/10-nodejs/02-Homework/
+      // new: 2-Homework/
+      var regexString = '(\\.\\.\\/\\.\\.\\/\\.\\.\\/01-Class-Content\\/' +
+        options.loadedCohort.content_dir +
+        '(\\d+-Homework)\\/)';
+      logger.debug(regexString)
+      var regex = new RegExp(regexString, 'gm');
+      result = data.replace(
+        regex,
+        function (match, origUrl) {
+          logger.info('Rename directory: \n' +
+          'OLD: ' + origUrl + '\n' +
+          'NEW: ' + options.distHomeworkDirName);
+
+          return options.distHomeworkDirName;
+        }
+      );
+
+      // Update activities links
+      result = result.replace(
+        //... get activity foldername
+        // https://regexr.com/47mrn
+        /(..\/..\/..\/01-Class-Content\/.*\/01-Activities\/(\d+-[\w\d-_]+))/gm,
+        function (match, origUrl, activity, offset, inputString) {
+          //... search curriculum json config for foldername
+          let activities = options.loadedCohort.activities;
+          for (let day in activities) {
+            logger.debug(day)
+            if (activities[day].includes(activity)) {
+              // logger.debug('day.includes(activity): ' + activities[day].includes(activity))
+              // Create replacement url to dist class repo location
+              logger.debug(options[day])
+              let newUrl = 
+                options.distClassContentDirName + '/' +
+                options[day].folder + '/Activities/' + activity;
+              logger.info('Replaced Link\n' +
+              'OLD: ' + origUrl + '\n' +
+              'NEW: ' + newUrl + '/');
+
+              return newUrl;
+
+            }
+          }
+        }
+      );
+
+      logger.debug(result);
+
+      fs.writeFile(filePath, result, 'utf8', function (err) {
+        if (err) return console.log(err);
+      });
+    });
+  }
+
   let filesToCopy = {
     'VideoGuide.md': 'VideoGuide.md',
     'StudentGuide.md': 'README.md'
@@ -254,82 +328,10 @@ function copyWeeklyReadmes() {
   
     copyFile(src, dest);
 
-    if (srcFileName === 'StudentGuide.md')
-      fixActivityLinks(dest);
+    if (srcFileName === 'StudentGuide.md') fixActivityLinks(dest);
 
-    function fixActivityLinks (filePath) {
-      logger.debug(filePath)
-      if (!isFileExists(filePath)) {
-        logger.warn('file not found, ' + filePath);
-        return;
-      }
-  
-      fs.readFile(filePath, 'utf8', function (err, data) {
-        if (err) {
-          return logger.error('ERROR:' + err);
-        }
-
-        let result;
-
-        // Update homework link
-        // old: ../../../01-Class-Content/10-nodejs/02-Homework/
-        // new: 2-Homework/
-        var regexString = '(\\.\\.\\/\\.\\.\\/\\.\\.\\/01-Class-Content\\/' +
-          options.loadedCohort.content_dir +
-          '(\\d+-Homework)\\/)';
-        logger.debug(regexString)
-        var regex = new RegExp(regexString, 'gm');
-        result = data.replace(
-          regex,
-          function (match, origUrl) {
-            logger.info('Rename directory: \n' +
-            'OLD: ' + origUrl + '\n' +
-            'NEW: ' + options.distHomeworkDirName);
-
-            return options.distHomeworkDirName;
-          }
-        );
-
-        // Update activities links
-        result = result.replace(
-          //... get activity foldername
-          // https://regexr.com/47mrn
-          /(..\/..\/..\/01-Class-Content\/.*\/01-Activities\/(\d+-[\w\d-_]+))/gm,
-          function (match, origUrl, activity, offset, inputString) {
-            //... search curriculum json config for foldername
-            let activities = options.loadedCohort.activities;
-            for (let day in activities) {
-              logger.debug(day)
-              if (activities[day].includes(activity)) {
-                // logger.debug('day.includes(activity): ' + activities[day].includes(activity))
-                // Create replacement url to dist class repo location
-                logger.debug(options[day])
-                let newUrl = 
-                  options.distClassContentDirName + '/' +
-                  options[day].folder + '/Activities/' + activity;
-                logger.info('Replaced Link\n' +
-                'OLD: ' + origUrl + '\n' +
-                'NEW: ' + newUrl + '/');
-
-                return newUrl;
-
-              }
-            }
-          }
-        );
-
-        logger.debug(result);
-
-        fs.writeFile(filePath, result, 'utf8', function (err) {
-          if (err) return console.log(err);
-        });
-      });
-    }
 
   }
-}
-function copyWeekExtras() {
-  copyFile(options.srcLessonPlans + 'Supplemental', options.distWeek + 'Supplemental');
 }
 /**
  * Copies files (defined as keys in dirsToCopy) to their day folder destination.  The values of dirsToCopy represent the new file names (if changed).
@@ -348,7 +350,6 @@ function copyDailyExtras(day) {
     // log(__line);
     // log(__function);
     copyFile(src, dest + dirsToCopy[srcDirName]);
-
   }
 }
 /**
@@ -459,12 +460,13 @@ function makeDirectories(activities) {
   );
   // ## add .gitignore to ignore 'Solutions' in Homework dir (remove this after 1 week of class passes)
   logger.debug(options.distWeekHomeworkDir)
-  createGitIgnore(options.distWeekHomeworkDir, 'Solutions');
+  // Add Solutions & Solution to .gitignore
+  // createGitIgnore(options.distWeekHomeworkDir, 'Solutions\nSolution');
+  createGitIgnore(options.distWeekHomeworkDir, findFileOrDir(options.distWeekHomeworkDir, /Solutions?/));
   // ## Copy supplemental folder in the week.
-  copyWeekExtras();
-
+  copyFile(options.srcLessonPlans + 'Supplemental', options.distWeek + 'Supplemental');
   // ## Copy class-day activities for week.
-  let dayConfig = {
+  const dayConfig = {
     day01: {
       distDir: options.day01.fullPath,
       srcDir: '01-Day'
@@ -479,22 +481,30 @@ function makeDirectories(activities) {
     }
   };
   for (let day in dayConfig) {
-    logger.debug((options.dayHandle+' && '+options.dayHandle+' !== '+day))
-    if (options.dayHandle && options.dayHandle !== day) {
-      continue;
+
+    switch (true) {
+      // Only scan the filesystem when there's configured activities in the JSON for the day.
+      case options.loadedCohort.activities[day].length === 0:
+        logger.error('\n' + day + ' has no configured activities!\nSee ./config/curriculum.json');
+        continue;
+      // --day option was passed in so limit filesystem activity to only the passed in day.
+      case options.dayHandle && options.dayHandle !== day:
+        logger.debug('Skipping ' + day);
+        continue;
     }
-    // Only scan the filesystem when there's configured activities in the JSON for the day.
-    if (options.loadedCohort.activities[day].length > 0) {
-      fs.ensureDir(dayConfig[day].distDir);
-      copyDailyExtras(dayConfig[day]);
-      // ## add .gitignore to ignore "Solved" directories for days activities (remove after class)
-      createGitIgnore(dayConfig[day].distDir, 'Solved');
-      copyDailyActivities(
-        options.loadedCohort.activities[day],
-        options.srcClassContents + pkgFile.paths.activitiesDir,
-        options.getDistWeekActivitiesDir(dayConfig[day].distDir)
-      );
-    }
+
+    // Create day dist directory
+    fs.ensureDir(dayConfig[day].distDir);
+    // Any extra directories for the day.
+    copyDailyExtras(dayConfig[day]);
+    // ## add .gitignore to ignore "Solved" directories for days activities (remove after class)
+    createGitIgnore(dayConfig[day].distDir, 'Solved');
+    // Activities per day from source class contents.
+    copyDailyActivities(
+      options.loadedCohort.activities[day],
+      options.srcClassContents + pkgFile.paths.activitiesDir,
+      options.getDistWeekActivitiesDir(dayConfig[day].distDir)
+    );
 
   }
 }

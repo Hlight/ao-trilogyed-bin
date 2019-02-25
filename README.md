@@ -13,8 +13,10 @@ Commandline Options:
 `--cohort` | `-c` | Required, string, cohort ID to copy curriculum contents for (configured in package.json) |
 |`--verbose` | `-v`| _(optional)_ turn on extra console logs. |
 
+Command:
+
 ```shell
- node class_repo.js --week 10 --cohort UWASEA201811FSF5 -v
+ node class-repo.js --week 10 --cohort UWASEA201811FSF5 -v
 ```
 
 ## Options Object

@@ -124,29 +124,48 @@
         "01-RainingCatsAndDogs-NoCon",
         "02-RainingCatsAndDogs-Con",
         "03-CharacterCreate",
-        "04-Tamagotchi",
+        "04-Tamagotchi"
+      ],
+      "day02": [
         "05-Programmers",
         "06-ProgrammersWithPrompt",
         "07-ProgrammersLoop",
         "08-TeamManager",
         "09-MovieManager",
         "10-Classrooms",
-        "11-Stu_Architecture",
+        "11-Stu_Architecture"
+      ],
+      "day03": [
         "12-Stu_Cli",
         "13-Stu_FindShow",
         "14-Stu_FinalTVApp",
         "15-Callback"
-      ],
-      "day02": [],
-      "day03": []
+      ]
     }
   },
   "week12": {
     "content_dir": "12-mysql/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-animalsDB",
+        "02-FavoriteDB-NoData",
+        "03-animalsDBWithID",
+        "04-programmingDB",
+        "05-booksDB"
+      ],
+      "day02": [
+        "06-iceCreamWithConnection",
+        "07-iceCreamReadData",
+        "08-playlistRead",
+        "09-iceCreamCRUD",
+        "10-GreatBay"
+      ],
+      "day03": [
+        "11-popQuiz",
+        "12-Top5000Schema",
+        "13-Top5000Code",
+        "14-TwoTables"
+      ]
     }
   },
   "week13": {

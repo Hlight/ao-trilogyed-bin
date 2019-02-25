@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/Hlight/ao-trilogyed-bin#readme",
   "dependencies": {
+    "dotenv": "^6.2.0",
     "fs-extra": "^7.0.1",
     "logat": "^1.0.11",
     "minimist": "^1.2.0",

@@ -28,39 +28,63 @@ function findLessonPlanActivities(lessonPlanFilePath) {
     return;
   }
 
-  fs.readFile(lessonPlanFilePath, 'utf8', function (err, data) {
-    if (err) {
-      return logger.error('ERROR:' + err);
-    }
+  return new Promise(function (resolve, reject) {
+    fs.readFile(lessonPlanFilePath, 'utf8', function (err, data) {
+      if (err) {
+        // return logger.error('ERROR:' + err);
+        logger.error('ERROR:' + err);
+        reject(err);
+      }
 
-    let match = new RegExp(/Summary: Complete activities (\d+-\d+) in Unit (\d+)/, 'gm').exec(data);
-    logger.debug(match);
+      let match = new RegExp(/Summary: Complete activities (\d+-\d+) in Unit (\d+)/, 'gm').exec(data);
+      logger.debug(match);
+      
 
-    let fullString = match[0];
-    let range = match[1];
-    let unit = match[2];
+      let fullString = match[0];
+      let range = match[1];
+      let unit = match[2];
 
-    range = range.split('-');
+      range = range.split('-');
 
-    let daysActivities = [];
+      // temp resolve the match object
+      resolve(range) // TODO: make daysActivities populated with folder names of activities.
 
-    let startActivityNum = parseInt(range[0]);
-    let endActivityNum = parseInt(range[1]);
-    for (let i=startActivityNum; i<endActivityNum; i++) {
-      // create activity padded number.
-      // use number to search dir contents for full dirname of activity.
-      // add activity dirname to list
-    }
+      let daysActivities = [];
 
-    return daysActivities;
+      let startActivityNum = parseInt(range[0]);
+      let endActivityNum = parseInt(range[1]);
+      for (let i=startActivityNum; i<endActivityNum; i++) {
+        // create activity padded number.
+        // use number to search dir contents for full dirname of activity.
+        // add activity dirname to list
+      }
 
+      // return daysActivities;
+      resolve(daysActivities);
+
+
+    });
   });
 }
+
 function isFileExists(path) {
   let isFileExists = fs.existsSync(path) &&
     fs.lstatSync(path).isFile();
   return isFileExists;
 }
 
-
-findLessonPlanActivities('/Users/aaronostrowsky/Documents/TrilogyEd/FullStack-Lesson-Plans/02-lesson-plans/part-time/10-Week/01-Day/01-Day-LessonPlan.md')
+function findWeeksActs(week) {
+  const srcLessonPlansPath = '/Users/aaronostrowsky/Documents/TrilogyEd/FullStack-Lesson-Plans/02-lesson-plans/part-time/';
+  const getDayPath = function (day) {
+    return '/0' + day + '-Day/0' + day + '-Day-LessonPlan.md';
+  };
+  const activities = [];
+  for (let i=1; i<=3; i++) {
+    activities.push(findLessonPlanActivities(srcLessonPlansPath + week + getDayPath(i)));
+  }
+  return Promise.all(activities);
+}
+findWeeksActs('12-Week').then(function(data){ 
+  console.log(data)
+  return data; 
+});
