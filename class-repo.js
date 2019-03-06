@@ -115,9 +115,9 @@ const options = {
    * Adds properties to this object with full paths for each day, 
    * e.g. options.day01, options.day02, etc.
    * 
-   * @param {number} num 
+   * @param number num 
    * 
-   * @return {string}
+   * @return string
    */
   getDistDay: function (num) {
     var prop = 'day' + pad(num);
@@ -154,7 +154,7 @@ function init() {
 }
 /**
  * Wrapper for console.log so we can turn it off with an option.
- * @param {String} out 
+ * @param String out 
  */
 function log(out) {
   if (isConsoleEnabled) {
@@ -163,7 +163,7 @@ function log(out) {
 }
 /**
  * Pad numbers to two digits e.g.1 to 01
- * @param {Number} num 
+ * @param Number num 
  */
 function pad(num) {
   var s = "0" + num;
@@ -171,7 +171,7 @@ function pad(num) {
 }
 /**
  * Make a directory using fs - extra 's "ensureDirSync"
- * @param {String} dir 
+ * @param String dir 
  */
 function mkDir(dir) {
   if (isDirExists(dir)) {
@@ -180,7 +180,7 @@ function mkDir(dir) {
   fs.ensureDirSync(dir);
 }
 /**
- * @param {String} path 
+ * @param String path 
  */
 function isDirExists (path) {
   let isDirExists = fs.existsSync(path) &&
@@ -188,7 +188,7 @@ function isDirExists (path) {
   return isDirExists;
 }
 /**
- * @param {String} path 
+ * @param String path 
  */
 function isFileExists(path) {
   let isFileExists = fs.existsSync(path) &&
@@ -196,7 +196,7 @@ function isFileExists(path) {
   return isFileExists;
 }
 /**
- * @param {String} path 
+ * @param String path 
  */
 function isFileOrDirectory(path) {
   return isFileExists(path) || isDirExists(path);
@@ -223,8 +223,8 @@ function findFileOrDir(dirPath, search) {
  * Copies a given src file to supplied dest folder.
  * Throws error if src does not exist.
  * 
- * @param {String} src 
- * @param {String} dest 
+ * @param String src 
+ * @param String dest 
  */
 function copyFile(src, dest) {
   if (!isFileOrDirectory(src)) {
@@ -336,7 +336,7 @@ function copyWeeklyReadmes() {
 /**
  * Copies files (defined as keys in dirsToCopy) to their day folder destination.  The values of dirsToCopy represent the new file names (if changed).
  *
- * @param {Object} day 
+ * @param Object day 
  */
 function copyDailyExtras(day) {
   let dest = day.distDir;
@@ -355,9 +355,9 @@ function copyDailyExtras(day) {
 /**
  * Responsible for copying daily activities defined in the curriculum json.
  * 
- * @param {Array} activities 
- * @param {String} src curriculum github repo.
- * @param {String} dest class gitlab repo.
+ * @param Array activities 
+ * @param String src curriculum github repo.
+ * @param String dest class gitlab repo.
  */
 function copyDailyActivities (activities, src, dest) {
   logger.debug(activities)
@@ -378,8 +378,8 @@ function copyDailyActivities (activities, src, dest) {
 /**
  * Determines if a src folder is configured for a specific class-day.
  * 
- * @param {Object} opts { src, dest, callback }
- * @param {Function} callback function
+ * @param Object opts { src, dest, callback }
+ * @param Function callback function
  * 
  * @returns Boolean true is activity dir found in curriculum json.
  */
@@ -402,8 +402,8 @@ function isActivityInDay (opts, callback) {
 /**
  * Responsible for creating a .gitignore file with the given content.
  * 
- * @param {String} dest 
- * @param {String} content
+ * @param String dest 
+ * @param String content
  */
 function createGitIgnore (dest, content) {
   fs.ensureDir(dest);// ensure directory exists
@@ -420,7 +420,7 @@ function createGitIgnore (dest, content) {
 /**
  * Main script to setup our class repo directories for the week.
  * 
- * @param {Object} activities 
+ * @param Object activities 
  */
 function makeDirectories(activities) {
   if (!init()) {
@@ -519,9 +519,9 @@ function makeDirectories(activities) {
    log('-- found: ', filename);
  });
  * 
- * @param {String} startPath 
- * @param {RegExp} filter 
- * @param {Function} callback 
+ * @param String startPath 
+ * @param RegExp filter 
+ * @param Function callback 
  * 
  * @return null
  */

@@ -171,9 +171,28 @@
   "week13": {
     "content_dir": "13-express/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-FirstServer",
+        "02-Two-Servers",
+        "03-Portfolio",
+        "04-Serving-HTML",
+        "05-Serve-Favorites",
+        "06-Request-Methods",
+        "07-POST-Method"
+      ],
+      "day02": [
+        "08-StarWars-1",
+        "09-StarWars-2",
+        "10-StarWars-3",
+        "11-StarWars-4",
+        "12-StarWars-5",
+        "13-StarWars-6",
+        "14-FinalStarwarsApp"
+      ],
+      "day03": [
+        "15-ExtendedApp",
+        "16-HotRestaurant"
+      ]
     }
   },
   "week14": {

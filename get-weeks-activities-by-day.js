@@ -22,7 +22,6 @@ const isConsoleEnabled = argv.v || argv.verbose || false;
 // end shared
 
 function findLessonPlanActivities(lessonPlanFilePath) {
-  logger.debug(lessonPlanFilePath)
   if (!isFileExists(lessonPlanFilePath)) {
     logger.warn('file not found, ' + lessonPlanFilePath);
     return;
@@ -35,10 +34,11 @@ function findLessonPlanActivities(lessonPlanFilePath) {
         logger.error('ERROR:' + err);
         reject(err);
       }
-
-      let match = new RegExp(/Summary: Complete activities (\d+-\d+) in Unit (\d+)/, 'gm').exec(data);
-      logger.debug(match);
-      
+      console.log(data)
+      let match = new RegExp(
+        // Test this RegEx out here:
+        // https://regexr.com/49k9u
+        /Summary: Complete activity?(?:ies)? (\d+-?\d+?) in Unit (\d+)/, 'gm').exec(data);      
 
       let fullString = match[0];
       let range = match[1];
@@ -48,6 +48,8 @@ function findLessonPlanActivities(lessonPlanFilePath) {
 
       // temp resolve the match object
       resolve(range) // TODO: make daysActivities populated with folder names of activities.
+
+      
 
       let daysActivities = [];
 
@@ -84,7 +86,7 @@ function findWeeksActs(week) {
   }
   return Promise.all(activities);
 }
-findWeeksActs('12-Week').then(function(data){ 
+findWeeksActs('13-Week').then(function(data){ 
   console.log(data)
   return data; 
 });
