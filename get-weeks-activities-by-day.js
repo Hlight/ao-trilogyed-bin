@@ -34,39 +34,67 @@ function findLessonPlanActivities(lessonPlanFilePath) {
         logger.error('ERROR:' + err);
         reject(err);
       }
-      console.log(data)
+      let fullString;
+      let range;
+      let unit;
+      let daysActivities;
+      let startActivityNum;
+      let endActivityNum;
+
       let match = new RegExp(
         // Test this RegEx out here:
         // https://regexr.com/49k9u
-        /Summary: Complete activity?(?:ies)? (\d+-?\d+?) in Unit (\d+)/, 'gm').exec(data);      
-
-      let fullString = match[0];
-      let range = match[1];
-      let unit = match[2];
-
-      range = range.split('-');
-
-      // temp resolve the match object
-      resolve(range) // TODO: make daysActivities populated with folder names of activities.
-
-      
-
-      let daysActivities = [];
-
-      let startActivityNum = parseInt(range[0]);
-      let endActivityNum = parseInt(range[1]);
-      for (let i=startActivityNum; i<endActivityNum; i++) {
-        // create activity padded number.
-        // use number to search dir contents for full dirname of activity.
-        // add activity dirname to list
-      }
-
-      // return daysActivities;
-      resolve(daysActivities);
-
-
+        /Summary: Complete activity?(?:ies)? (\d+-?\d+?) in Unit (\d+)/, 'gm').exec(data);  
+      if (match) {
+        fullString = match[0];
+        console.log(fullString)
+        range = match[1];
+        unit = match[2];
+        range = range.split('-');
+        // get days activities based on single range
+        daysActivities = findActivityFolders(parseInt(range[0]), parseInt(range[1]));
+        resolve(daysActivities);
+      } else {
+        match = new RegExp(/Summary: Complete activity?(?:ies)? ((?:\d+-\d+)?(?:\d+)?) and activity ((?:\d+-\d+)?(?:\d+)?) in Unit (\d+)/, 'gm').exec(data);
+        fullString = match[0];
+        console.log(fullString)
+        range1 = match[1].split('-');
+        range2 = match[2].split('-');
+        unit = match[3];
+        // Get days based on two ranges found.
+        daysActivities = [];
+        [range1, range2].forEach((range) => {
+          let acts;
+          if (range[0] && range[1]) {
+            acts = findActivityFolders(parseInt(range[0]), parseInt(range[1]));
+          } else if (range[0] && !range[1]) {
+            acts = findActivityFolders(parseInt(range[0]));
+          }
+          daysActivities = daysActivities.concat(acts);
+        });
+        resolve(daysActivities);
+      }   
     });
   });
+}
+
+function findActivityFolders(start, end) {
+  // TODO: have this use package.json values.
+  const path = `/Users/aaronostrowsky/Documents/TrilogyEd/FullStack-Lesson-Plans/01-Class-Content/${globalContentDir}/01-Activities/`;
+
+  return shell.ls(path).filter((item) => {
+    let itemDirNum = item.substring(0, 2);
+
+    // If only 1 activity provided return directory name where numbers match.
+    if (start && !end && parseInt(itemDirNum) === parseInt(start)) {
+      return item;
+    }
+    // Otherwise, ensure folder number is within range of start & end dir numbers found in lesson plan.
+    if (parseInt(itemDirNum) >= parseInt(start) &&
+      parseInt(itemDirNum) <= parseInt(end)) {
+      return item;
+    }
+  })
 }
 
 function isFileExists(path) {
@@ -86,7 +114,16 @@ function findWeeksActs(week) {
   }
   return Promise.all(activities);
 }
-findWeeksActs('13-Week').then(function(data){ 
-  console.log(data)
-  return data; 
+
+//--------------------------------------------
+
+var globalContentDir = process.argv[2];
+var globalWeek = process.argv[2].substring(0,2) + '-Week';
+
+findWeeksActs(globalWeek).then(function (data) {
+  data.forEach((day, index) => {
+    console.table(`/// Day ${index+1} ///`)
+    console.log(day)
+  });
+  // return data; 
 });
