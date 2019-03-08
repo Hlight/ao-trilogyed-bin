@@ -119,3 +119,5 @@ $ node get-weeks-activities-by-day.js 13-express
 ```
 
 Because the pattern varies between weeks this requires manual testing (at this point) which involves running the script and manually coping the output from the terminal to the curriculum.json config file.
+
+<img src="ss.png" />
