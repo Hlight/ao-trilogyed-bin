@@ -100,3 +100,22 @@ The following "paths" object must be in the package.json in oder to configure th
     }
   },
 ```
+
+
+---
+---
+
+## Get Weeks Activities by Day
+
+Currently this logic is in a separate script `get-weeks-activities-by-day.js`.
+
+Search for activities mentioned in the `lessonPlan.md` file and output the activities directory names to the terminal.
+
+`node get-weeks-activities-by-day.js <class_contents_week_directory_name>`
+
+Example usage:
+```shell
+$ node get-weeks-activities-by-day.js 13-express
+```
+
+Because the pattern varies between weeks this requires manual testing (at this point) which involves running the script and manually coping the output from the terminal to the curriculum.json config file.

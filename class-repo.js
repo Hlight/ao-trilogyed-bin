@@ -208,8 +208,9 @@ function isFileOrDirectory(path) {
  */
 function findFileOrDir(dirPath, search) {
   const files = shell.ls(dirPath);
-  let out = '';
   logger.debug(files)
+  
+  let out = '';
   for (let i=0;i<files.length;i++) {
     let file = files[i];
     if (search.test(file)) {
@@ -218,6 +219,7 @@ function findFileOrDir(dirPath, search) {
     }
   }
   return out;
+
 }
 /**
  * Copies a given src file to supplied dest folder.

@@ -198,17 +198,56 @@
   "week14": {
     "content_dir": "14-handlebars/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-ExpressCalculator",
+        "02-MagicalSchools",
+        "03-SeinfeldApp",
+        "04-HandlebarsLunch",
+        "06-BenAndJerrys"
+      ],
+      "day02": [
+        "05-HandlebarsAnimals",
+        "07-TaskSaver",
+        "08-Wishes",
+        "09-DayPlanner",
+        "10-WatchList"
+      ],
+      "day03": [
+        "10-WatchList",
+        "11-QuotesApp",
+        "12-OrmExample",
+        "13-PartyDatabase",
+        "14-TheAsyncProblem",
+        "15-CallbackReview",
+        "16-MvcExample",
+        "17-CatsApp"
+      ]
     }
   },
   "week15": {
     "content_dir": "15-sequelize/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "00-MVCDiagram",
+        "01-Chirpy-mySQL",
+        "02-SequelizeQuestions",
+        "03-Chirpy-Sequelize",
+        "04-StarWars",
+        "05-SequelizeLibrary",
+        "06-SequelizeCLI"
+      ],
+      "day02": [
+        "07-ORM-To-Sequelize",
+        "08-Sequelize-Create-Read",
+        "09-Sequelize-Update-Delete",
+        "10-Sequelize-Validations"
+      ],
+      "day03": [
+        "11-Post-Model",
+        "12-Blog-CRUD",
+        "13-Post-Author-Association",
+        "14-Post-Author-Joins"
+      ]
     }
   },
   "week16": {
@@ -230,9 +269,32 @@
   "week18": {
     "content_dir": "18-mongo-mongoose/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-Create-Insert-and-Find",
+        "02-Starting-With-Mongo",
+        "03-Update-Delete-and-Drop",
+        "04-Student-Update-Delete-and-Drop"
+      ],
+      "day02": [
+        "05-Scraping",
+        "06-Scrape-Starter",
+        "07-Insert-Animals",
+        "08-Sorting",
+        "09-MongoDB-and-Sorting",
+        "10-MongoJS-and-the-Front-End",
+        "11-Scraping-into-a-db",
+        "12-Note-Taker"
+      ],
+      "day03": [
+        "13-Warm-Up",
+        "14-SchemaExample",
+        "15-User-Schema",
+        "16-Custom-Methods",
+        "17-Custom-Method-Exercise",
+        "18-Intro-Populate",
+        "19-Populate-Exercise",
+        "20-Scraping-With-Mongoose"
+      ]
     }
   },
   "week19": {
