@@ -9,7 +9,7 @@
     "classContentDir": "01-Class-Content/",
     "activitiesDir": "01-Activities/",
     "homeworkDir": "02-Homework/",
-    "supplementalDir": "03-Supplemental/",
+    "supplementalDir": "(\\d+-)?Supplemental/",
     "cohorts": {
       "UWASEA201811FSF5": "Code/gitlab/Hlight/UWASEA201811FSF5/"
     }

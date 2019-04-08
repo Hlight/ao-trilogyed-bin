@@ -253,15 +253,34 @@
   "week16": {
     "content_dir": "16-project-2/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-Stu_Create-Repository",
+        "02-Stu_No-Lint-Example",
+        "03-Stu_Eslint-Example",
+        "04-Stu_Project-Starter",
+        "05-Stu_Travis-Setup"
+      ],
+      "day02": [
+        "06-Stu_Kanban",
+        "07-Stu_Standup"
+      ],
+      "day03": [
+        "08-Ins_Error-Handling-Example",
+        "09-Stu_Check-For-Exceptions",
+        "10-Ins_Mocha-Chai-Example",
+        "11-Stu_Disemvowel",
+        "12-Stu_Titleize"
+      ]
     }
   },
   "week17": {
     "content_dir": "17-project-2/",
     "activities": {
-      "day01": [],
+      "day01": [
+        "01-Stu_Warmup",
+        "02-Stu_GET-Test",
+        "03-Stu_POST-Test"
+      ],
       "day02": [],
       "day03": []
     }
@@ -300,16 +319,64 @@
   "week19": {
     "content_dir": "19-react/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-Ins_ArrowFunction",
+        "02-Stu_ArrowFunctionPractice",
+        "03-Ins_LetAndBlockScope",
+        "04-Ins_ConstantReference",
+        "05-Stu_ConvertConstLetArrow",
+        "06-Ins_TruthyFalsey",
+        "07-Stu_TruthyFalsey",
+        "08-Ins_FunctionalLoops",
+        "09-Stu_FunctionalLoops",
+        "10-Ins_Classes",
+        "11-Stu_ConstructorToClass",
+        "12-Ins_ObjDestructuring",
+        "13-Ins_ES2015Modules"
+      ],
+      "day02": [
+        "14-Stu_DocumentationQuestions",
+        "15-Stu_HelloReact",
+        "16-Stu_HelloDiv",
+        "17-Ins_HelloBootstrap",
+        "18-Stu_HelloBootstrap",
+        "19-Ins_JSXVariables",
+        "20-Stu_JSXVariables",
+        "21-Ins_CSSDemo",
+        "22-Stu_StyleProp"
+      ],
+      "day03": [
+        "23-Ins_PropsDemo",
+        "24-Stu_PropsCalculator",
+        "25-Stu_PropsReview",
+        "26-Stu_ComponentMap",
+        "27-Ins_BasicState",
+        "28-Stu_DecrementCounter",
+        "29-Stu_FriendRefactor",
+        "30-Ins_FormsDemo",
+        "31-Stu_FunWithForms"
+      ]
     }
   },
   "week20": {
     "content_dir": "20-react/",
     "activities": {
-      "day01": [],
-      "day02": [],
+      "day01": [
+        "01-Stu_FormalReview",
+        "02-Ins_AJAX",
+        "03-Stu_AJAX",
+        "04-Stu_ConditionalRender",
+        "05-Ins_IntroReactRouter",
+        "06-Stu_PupsterApp"
+      ],
+      "day02": [
+        "07-Ins_Mern",
+        "08-Stu_Recipes",
+        "09-Stu_AJAXBooks",
+        "10-Stu_AJAXFormDelete",
+        "11-Stu_ReactRouter",
+        "12-Stu_Deployment"
+      ],
       "day03": []
     }
   },
@@ -324,17 +391,43 @@
   "week22": {
     "content_dir": "22-computer-science/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-Benchmark",
+        "02-Binary-Search"
+      ],
+      "day02": [
+        "03-Selection-Sort",
+        "04-Insertion-Sort",
+        "05-Quicksort"
+      ],
+      "day03": [
+        "06-Lodash",
+        "07-Big-O",
+        "08-Data-Structures"
+      ]
     }
   },
-  "week23": {
+    "week23": {
     "content_dir": "23-other-languages/",
     "activities": {
-      "day01": [],
-      "day02": [],
-      "day03": []
+      "day01": [
+        "01-Console-IO-Ruby",
+        "02-Arrays-Hashes-Conditions-Ruby",
+        "03-Functions-Ruby",
+        "04-Classes-and-Objects-Ruby"
+      ],
+      "day02": [
+        "05-Console-IO-Java",
+        "06-Arrays-Maps-Conditions-Java",
+        "07-Functions-Java",
+        "08-Classes-and-Objects-Java"
+      ],
+      "day03": [
+        "09-Console-IO-Python",
+        "10-Lists-Dicts-Conditions-Python",
+        "11-Functions-Python",
+        "12-Classes-and-Objects-Python"
+      ]
     }
   }
 }

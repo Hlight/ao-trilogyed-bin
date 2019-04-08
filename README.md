@@ -16,7 +16,7 @@ Commandline Options:
 Command:
 
 ```shell
- node class-repo.js --week 10 --cohort UWASEA201811FSF5 -v
+ node class-repo.js --week 15 --cohort UWASEA201811FSF5 -v
 ```
 
 ## Options Object

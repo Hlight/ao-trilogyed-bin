@@ -1,6 +1,10 @@
 
 # TODOs
 
+
+
+## DONE: Issue, Supplemental directory is getting created for week with homework and activities directories which shouldn't be getting copied there.  
+
 ## DONE! Issue: Update URLs in README files.
 
 

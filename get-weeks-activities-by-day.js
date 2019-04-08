@@ -69,6 +69,7 @@ function findLessonPlanActivities(lessonPlanFilePath) {
         if (!match) {
           logger.error('No match found with second pattern! Returning empty array.');
           resolve([]);
+          return;// even though we resolve the promise we need to return here in order to prevent further code of this function executing since match is undefined.
         }
         fullString = match[0];
         console.log(fullString)

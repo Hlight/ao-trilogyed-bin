@@ -22,7 +22,7 @@
  */
 
 
-// require('./extra/debug.js'); // enables __function, __linen
+// require('./extra/debug.js'); // enables __function, __line
 
 const logger = require('logat');
 const shell = require('shelljs');
@@ -88,7 +88,15 @@ const options = {
     return this.srcHomeworkDirName + '/';
   },
   get srcSupplementalDir () {
-    return this.srcClassContents + pkgFile.paths.supplementalDir;
+    // DONE: RegExp for finding supplemental directory can be "03-Supplemental" or just "Supplemental" so need to match both.
+    const folderName = findFileOrDir(this.srcClassContents, new RegExp(pkgFile.paths.supplementalDir));
+    // If no folder name found return false since we don't want to copy anything.
+    if (!folderName) {
+      logger.error('NOT FOUND: ' + pkgFile.paths.supplementalDir);
+      return false;
+    }
+    logger.debug(folderName + '/')
+    return this.srcClassContents + folderName + '/';
   },
   get dist () {
     return userHome + '/' +
@@ -121,7 +129,7 @@ const options = {
    */
   getDistDay: function (num) {
     var prop = 'day' + pad(num);
-    // create new prop on this ojbect to get this path info later.
+    // create new prop on this object to get this path info later.
     this[prop] = {
       fullPath: this.distWeekContentDir + this.week + '.' + num + '/',
       folder: this.week + '.' + num
@@ -203,8 +211,8 @@ function isFileOrDirectory(path) {
 }
 /**
  * 
- * @param {*} dirPath 
- * @param {*} search 
+ * @param String dirPath 
+ * @param RegExp search 
  */
 function findFileOrDir(dirPath, search) {
   const files = shell.ls(dirPath);
@@ -229,6 +237,10 @@ function findFileOrDir(dirPath, search) {
  * @param String dest 
  */
 function copyFile(src, dest) {
+  if (!src || !dest) {
+    logger.error('`src` and `dest` rquired!');
+    return;
+  }
   if (!isFileOrDirectory(src)) {
     logger.warn('Src not found! (' + src + ')');
     return;
@@ -294,7 +306,6 @@ function copyWeeklyReadmes() {
           for (let day in activities) {
             logger.debug(day)
             if (activities[day].includes(activity)) {
-              // logger.debug('day.includes(activity): ' + activities[day].includes(activity))
               // Create replacement url to dist class repo location
               logger.debug(options[day])
               let newUrl = 
@@ -321,12 +332,17 @@ function copyWeeklyReadmes() {
 
   let filesToCopy = {
     'VideoGuide.md': 'VideoGuide.md',
-    'StudentGuide.md': 'README.md'
+    'StudentGuide.md': 'README.md',
+    'Supplemental': 'Supplemental'
   };
   for (let srcFileName in filesToCopy) {
     let newName = filesToCopy[srcFileName];
     let src = options.srcLessonPlans + srcFileName;
     let dest = options.distWeek + newName;
+    if (srcFileName === 'Supplemental') {
+      src = options.srcSupplementalDir;
+      dest = options.distSupplementalDir;
+    }
   
     copyFile(src, dest);
 
@@ -342,6 +358,10 @@ function copyWeeklyReadmes() {
  */
 function copyDailyExtras(day) {
   let dest = day.distDir;
+  /**
+   * Directories to copy from source to class repo destination.
+   * { "Source-Folder-Name": "Destination-Folder-Name" }
+   */
   let dirsToCopy = {
     'Images': 'Images',
     'Slide-Shows': 'Slide-Shows',
@@ -349,6 +369,7 @@ function copyDailyExtras(day) {
   };
   for (let srcDirName in dirsToCopy) {
     let src = options.srcLessonPlans + day.srcDir + '/' + srcDirName;
+
     // log(__line);
     // log(__function);
     copyFile(src, dest + dirsToCopy[srcDirName]);
@@ -434,8 +455,6 @@ function makeDirectories(activities) {
   // Add individual class day directories.
   let dayNum = 1;
   for (let day in activities) {
-    // log(dayNum)
-    logger.error(activities[day].length)
     let dayPath = options.getDistDay(dayNum);
     if (activities[day].length > 0) {
       logger.debug('activities[day].length: ' + activities[day].length)
@@ -448,14 +467,14 @@ function makeDirectories(activities) {
   // ## Copy Homework dir to dist
   // logger.debug(__function);
   logger.debug('copyFile \n' +
-  'SRC: ' + options.srcClassContents + options.srcHomeworkDir  +
+  'SRC: ' + options.srcClassContents + options.srcHomeworkDir  + '\n' +
   'DEST: ' + options.distWeekHomeworkDir)
   copyFile(
     options.srcClassContents + options.srcHomeworkDir,
     options.distWeekHomeworkDir
   );
   // ## Copy Supplemental directory to dist
-  // logger.debug(__function);
+  // logger.error(__function)
   copyFile(
     options.srcSupplementalDir,
     options.distSupplementalDir
@@ -466,7 +485,10 @@ function makeDirectories(activities) {
   // createGitIgnore(options.distWeekHomeworkDir, 'Solutions\nSolution');
   createGitIgnore(options.distWeekHomeworkDir, findFileOrDir(options.distWeekHomeworkDir, /Solutions?/));
   // ## Copy supplemental folder in the week.
+  // TODO: organize the supplemental directory logic
+  // 
   copyFile(options.srcLessonPlans + 'Supplemental', options.distWeek + 'Supplemental');
+
   // ## Copy class-day activities for week.
   const dayConfig = {
     day01: {
