@@ -115,7 +115,8 @@ Search for activities mentioned in the `lessonPlan.md` file and output the activ
 
 Example usage:
 ```shell
-$ node get-weeks-activities-by-day.js 13-express
+# node get-weeks-activities-by-day.js <WEEK_NUM>
+$ node get-weeks-activities-by-day.js 13
 ```
 
 Because the pattern varies between weeks this requires manual testing (at this point) which involves running the script and manually coping the output from the terminal to the curriculum.json config file.
