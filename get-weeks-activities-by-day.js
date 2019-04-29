@@ -23,10 +23,10 @@ const isConsoleEnabled = argv.v || argv.verbose || false;
 // end shared
 
 /**
- * Performs regex search on lesson plan contents to pull out 
+ * Performs regex search on lesson plan contents to pull out
  * the activity dir numbers for the day.
- * 
- * @param string lessonPlanFilePath 
+ *
+ * @param string lessonPlanFilePath
  */
 function findLessonPlanActivities(lessonPlanFilePath) {
   if (!isFileExists(lessonPlanFilePath)) {
@@ -34,8 +34,8 @@ function findLessonPlanActivities(lessonPlanFilePath) {
     return;
   }
 
-  return new Promise(function (resolve, reject) {
-    fs.readFile(lessonPlanFilePath, 'utf8', function (err, data) {
+  return new Promise(function(resolve, reject) {
+    fs.readFile(lessonPlanFilePath, 'utf8', function(err, data) {
       if (err) {
         // return logger.error('ERROR:' + err);
         logger.error('ERROR:' + err);
@@ -46,12 +46,15 @@ function findLessonPlanActivities(lessonPlanFilePath) {
       let unit;
       let daysActivities;
 
-      let match = new RegExp(
-        // Test this RegEx out here:
-        // https://regexr.com/49k9u
-        /Summary: Complete activity?(?:ies)? (\d+-?\d+?) in Unit (\d+)/, 'gm').exec(data);
-      
-      // TODO: clean this match logic up; the nested if statements is ugly.
+      let match =
+          new RegExp(
+              // Test this RegEx out here:
+              // https://regexr.com/49k9u
+              /Summary: Complete activity?(?:ies)? (\d+-?\d+?) in Unit (\d+)/,
+              'gm')
+              .exec(data);
+
+      // TODO: clean this match logic up; the nested if statements are ugly.
       if (match) {
         fullString = match[0];
         console.log(fullString)
@@ -59,17 +62,25 @@ function findLessonPlanActivities(lessonPlanFilePath) {
         unit = match[2];
         range = range.split('-');
         // get days activities based on single range
-        daysActivities = findActivityFolders(parseInt(range[0]), parseInt(range[1]));
+        daysActivities =
+            findActivityFolders(parseInt(range[0]), parseInt(range[1]));
         resolve(daysActivities);
-      // TODO: clean this match logic up;
+        // TODO: clean this match logic up;
       } else {
-        match = new RegExp(/Summary: Complete activity?(?:ies)? ((?:\d+-\d+)?(?:\d+)?) and activity ((?:\d+-\d+)?(?:\d+)?) in Unit (\d+)/, 'gm').exec(data);
-  
+        match =
+            new RegExp(
+                /Summary: Complete activity?(?:ies)? ((?:\d+-\d+)?(?:\d+)?) and activity ((?:\d+-\d+)?(?:\d+)?) in Unit (\d+)/,
+                'gm')
+                .exec(data);
+
         // If no match resolve for now an empty array
         if (!match) {
-          logger.error('No match found with second pattern! Returning empty array.');
+          logger.error(
+              'No match found with second pattern! Returning empty array.');
           resolve([]);
-          return;// even though we resolve the promise we need to return here in order to prevent further code of this function executing since match is undefined.
+          return;  // even though we resolve the promise we need to return here
+                   // in order to prevent further code of this function
+                   // executing since match is undefined.
         }
         fullString = match[0];
         console.log(fullString)
@@ -88,20 +99,22 @@ function findLessonPlanActivities(lessonPlanFilePath) {
           daysActivities = daysActivities.concat(acts);
         });
         resolve(daysActivities);
-      }   
+      }
     });
   });
 }
 /**
  * Using a the activities summary start and end strings e.g. 01-07
  * scan the output of 'ls' command for pulling out the entire activity dirname.
- * 
- * @param string start 
- * @param string end 
+ *
+ * @param string start
+ * @param string end
  */
 function findActivityFolders(start, end) {
   // DONE: have this use package.json values.
-  const path = userHome + '/' + pkgFile.paths.sourceRepoDir + pkgFile.paths.classContentDir + `/${weekContentDir}/` + pkgFile.paths.activitiesDir;
+  const path = userHome + '/' + pkgFile.paths.sourceRepoDir +
+      pkgFile.paths.classContentDir + `/${weekContentDir}/` +
+      pkgFile.paths.activitiesDir;
 
   return shell.ls(path).filter((item) => {
     let itemDirNum = item.substring(0, 2);
@@ -110,33 +123,35 @@ function findActivityFolders(start, end) {
     if (start && !end && parseInt(itemDirNum) === parseInt(start)) {
       return item;
     }
-    // Otherwise, ensure folder number is within range of start & end dir numbers found in lesson plan.
+    // Otherwise, ensure folder number is within range of start & end dir
+    // numbers found in lesson plan.
     if (parseInt(itemDirNum) >= parseInt(start) &&
-      parseInt(itemDirNum) <= parseInt(end)) {
+        parseInt(itemDirNum) <= parseInt(end)) {
       return item;
     }
   })
 }
 
 function isFileExists(path) {
-  let isFileExists = fs.existsSync(path) &&
-    fs.lstatSync(path).isFile();
+  let isFileExists = fs.existsSync(path) && fs.lstatSync(path).isFile();
   return isFileExists;
 }
 /**
- * Search week's lesson plans for activities summary line. 
+ * Search week's lesson plans for activities summary line.
  * Formats each day's path to lesson plan and has it scanned.
- * 
- * @param string week 
+ *
+ * @param string week
  */
 function findWeeksActs(week) {
-  const srcLessonPlansPath = userHome + '/' + pkgFile.paths.sourceRepoDir + pkgFile.paths.lessonPlanDir;
-  const getDayPath = function (day) {
+  const srcLessonPlansPath = userHome + '/' + pkgFile.paths.sourceRepoDir +
+      pkgFile.paths.lessonPlanDir;
+  const getDayPath = function(day) {
     return '/0' + day + '-Day/0' + day + '-Day-LessonPlan.md';
   };
   const activities = [];
-  for (let i=1; i<=3; i++) {
-    activities.push(findLessonPlanActivities(srcLessonPlansPath + week + getDayPath(i)));
+  for (let i = 1; i <= 3; i++) {
+    activities.push(
+        findLessonPlanActivities(srcLessonPlansPath + week + getDayPath(i)));
   }
   return Promise.all(activities);
 }
@@ -144,11 +159,11 @@ function findWeeksActs(week) {
 //--------------------------------------------
 
 const weekContentDir = process.argv[2];
-const weekLessonPlanDir = process.argv[2].substring(0,2) + '-Week';
+const weekLessonPlanDir = process.argv[2].substring(0, 2) + '-Week';
 
-findWeeksActs(weekLessonPlanDir).then(function (weeklyActivitiesByDay) {
+findWeeksActs(weekLessonPlanDir).then(function(weeklyActivitiesByDay) {
   weeklyActivitiesByDay.forEach((day, index) => {
-    console.table(`/// Day ${index+1} ///`);
+    console.table(`/// Day ${index + 1} ///`);
     console.log(day);
   });
 });

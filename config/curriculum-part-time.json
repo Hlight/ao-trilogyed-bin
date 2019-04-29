@@ -383,8 +383,24 @@
   "week21": {
     "content_dir": "21-regionalized-content/",
     "activities": {
-      "day01": [],
-      "day02": [],
+      "day01": [
+        "01-Ins_Console-IO-Demo",
+        "02-Stu_Console-IO",
+        "03-Ins_Arrays-Maps-Conditions-Demo",
+        "04-Stu_Arrays-Maps-Conditions",
+        "05-Ins_Functions-Demo",
+        "06-Stu_Functions",
+        "07-Ins_Classes-and-Objects-Demo",
+        "08-Stu_Classes-and-Objects"
+      ],
+      "day02": [
+        "09-Stu_Shapes",
+        "10-Ins_Subclasses-Demo",
+        "11-Stu_Subclasses",
+        "12-Ins_Interfaces-Demo",
+        "13-Stu_Interfaces",
+        "14-Ins_Exceptions-Demo"
+      ],
       "day03": []
     }
   },
